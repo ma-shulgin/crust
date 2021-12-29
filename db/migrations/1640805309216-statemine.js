@@ -1,7 +1,7 @@
 const { MigrationInterface, QueryRunner } = require("typeorm");
 
-module.exports = class statemine1640803029530 {
-    name = 'statemine1640803029530'
+module.exports = class statemine1640805309216 {
+    name = 'statemine1640805309216'
 
     async up(queryRunner) {
         await queryRunner.query(`CREATE TABLE "work_report" ("id" character varying NOT NULL, "added_files" jsonb, "deleted_files" jsonb, "extrinisic_id" text, "created_at" TIMESTAMP WITH TIME ZONE NOT NULL, "block_hash" text NOT NULL, "block_num" integer NOT NULL, "account_id" character varying NOT NULL, CONSTRAINT "PK_d3963847f6d836c01111b720a9a" PRIMARY KEY ("id"))`);
