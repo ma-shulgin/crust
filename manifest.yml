@@ -1,22 +1,17 @@
-version: '3.0'
-description: Test manifest
-repository: https://github.com/
-hydraVersion: ">=4"
+version: '4.0'
+description: Crust Processor
 
 typegen:
-  metadata:
-    source: wss://kusama-rpc.polkadot.io/
+  outDir: src/types
   events:
-    - balances.Transfer
-  calls:
-    - timestamp.set
-  outDir: chain
+  - swork.WorksReportSuccess
 
 mappings:
-  mappingsModule: mappings
+  mappingsModule: lib/mappings
   eventHandlers:
-    - event: balances.Transfer
-      handler: balancesTransfer
+    - event: swork.WorksReportSuccess
+      handler: workReportSuccess
+  
   extrinsicHandlers:
   preBlockHooks:
   postBlockHooks:
