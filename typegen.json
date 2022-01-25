@@ -1,0 +1,12 @@
+{
+  "outDir": "src/types",
+  "typesBundle": "kusama",
+  "chainVersions": "crustVersions.json",
+  "events": [
+    "swork.WorksReportSuccess",
+    "swork.JoinGroupSuccess",
+    "market.FileSuccess"
+  ],
+  "calls": [
+  ]
+}
