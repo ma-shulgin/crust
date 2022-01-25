@@ -2,7 +2,7 @@ type Account @entity {
   id: ID! #Account address
   workReports: [WorkReport] @derivedFrom(field: "account")
   joinGroups: [JoinGroup] @derivedFrom(field: "member")
-  storageOrdes: [StorageOrder] @derivedFrom (field: "account")
+  storageOrders: [StorageOrder] @derivedFrom (field: "account")
 }
 
 type WorkReport @entity {
