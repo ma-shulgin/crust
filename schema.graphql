@@ -1,6 +1,8 @@
 type Account @entity {
   id: ID! #Account address
   workReports: [WorkReport] @derivedFrom(field: "account")
+  joinGroups: [JoinGroup] @derivedFrom(field: "member")
+  storageOrdes: [StorageOrder] @derivedFrom (field: "account")
 }
 
 type WorkReport @entity {
@@ -8,6 +10,26 @@ type WorkReport @entity {
   account: Account!
   addedFiles: [[String]]
   deletedFiles: [[String]]
+  extrinisicId: String
+  createdAt: DateTime!
+  blockHash: String!
+  blockNum: Int!
+}
+
+type JoinGroup @entity {
+  id: ID!
+  member: Account!
+  owner: String!
+  extrinisicId: String
+  createdAt: DateTime!
+  blockHash: String!
+  blockNum: Int!
+}
+
+type StorageOrder @entity {
+  id: ID!
+  account: Account!
+  fileCid: String!
   extrinisicId: String
   createdAt: DateTime!
   blockHash: String!

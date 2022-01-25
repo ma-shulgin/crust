@@ -5,13 +5,18 @@ typegen:
   outDir: src/types
   events:
   - swork.WorksReportSuccess
-
+  - swork.JoinGroupSuccess
+  - market.FileSuccess
 mappings:
-  range: '[0589000, )'
+  range: '[0583000, )'
   mappingsModule: lib/mappings
   eventHandlers:
     - event: swork.WorksReportSuccess
       handler: workReportSuccess
+    - event: swork.JoinGroupSuccess
+      handler: joinGroupSuccess
+    - event: market.FileSuccess
+      handler: fileSuccess
   
   extrinsicHandlers:
   preBlockHooks:

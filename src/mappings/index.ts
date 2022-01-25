@@ -1,6 +1,6 @@
 import { ExtrinsicContext, EventContext, StoreContext } from '@subsquid/hydra-common'
 import { getOrCreate } from './helpers/entity-utils'
-import  {Account, WorkReport} from '../generated/model'
+import  {Account, WorkReport, JoinGroup, StorageOrder} from '../generated/model'
 
 
 export function stringifyArray(list: any[]): any[] {
@@ -13,6 +13,54 @@ export function stringifyArray(list: any[]): any[] {
     listStr.push(vec);
   }
   return listStr
+}
+
+export async function joinGroupSuccess({
+  store,
+  event,
+  block,
+  extrinsic,
+}: EventContext & StoreContext): Promise<void> {
+  const memberId = String(event.params[0].value);
+  const account = await getOrCreate(store, Account, memberId);
+  
+  const joinGroup = new JoinGroup();
+  
+  joinGroup.id = event.id;
+  joinGroup.member = account;
+  joinGroup.owner = String(event.params[1].value);
+
+  joinGroup.blockHash = block.hash;
+  joinGroup.blockNum = block.height;
+  joinGroup.createdAt = new Date(block.timestamp);
+  joinGroup.extrinisicId = extrinsic?.id;
+  //console.log(joinGroup);
+  await store.save(account);
+  await store.save(joinGroup);
+}
+
+export async function fileSuccess({
+  store,
+  event,
+  block,
+  extrinsic,
+}: EventContext & StoreContext): Promise<void> {
+  if (String(extrinsic?.method) === 'placeStorageOrder'){
+    const accountId = String(event.params[0].value);
+    const account = await getOrCreate(store, Account, accountId);
+
+    const storageOrder = new StorageOrder();
+    storageOrder.id = event.id;
+    storageOrder.account = account;
+    storageOrder.fileCid =  String(event.params[1].value);
+    storageOrder.blockHash = block.hash;
+    storageOrder.blockNum = block.height;
+    storageOrder.createdAt = new Date(block.timestamp);
+    storageOrder.extrinisicId = extrinsic?.id;
+    //console.log(storageOrder);
+    await store.save(account);
+    await store.save(storageOrder);
+  }
 }
 
 export async function workReportSuccess({
