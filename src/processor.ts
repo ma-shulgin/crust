@@ -64,7 +64,6 @@ async function fileSuccess({
   block,
   extrinsic,
 }: EventHandlerContext): Promise<void> {
-  if (String(extrinsic?.method) === 'placeStorageOrder'){
     const accountId = String(event.params[0].value);
     const account = await getOrCreate(store, Account, accountId);
 
@@ -79,7 +78,7 @@ async function fileSuccess({
     //console.log(storageOrder);
     await store.save(account);
     await store.save(storageOrder);
-  }
+  
 }
 
 async function workReportSuccess({
